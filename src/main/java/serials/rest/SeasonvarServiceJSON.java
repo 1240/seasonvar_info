@@ -92,7 +92,7 @@ public class SeasonvarServiceJSON implements ISerialService {
 
 	// returns list of serials meeting query params
 	@GET
-	//@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSerials(@QueryParam("keyword") String keyword,
 							   @QueryParam("orderby") String orderBy,
 							   @QueryParam("order") String order,
