@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CustomBeanRegistry">
+    <option name="map">
+      <map>
+        <entry key="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;jaxrs:server xmlns:jaxrs=&quot;http://cxf.apache.org/jaxrs&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot; id=&quot;restContainer&quot; address=&quot;/seasonvar&quot;&gt;&#10;  &lt;jaxrs:serviceBeans&gt;&#10;    &lt;ref bean=&quot;seasonvarService&quot; /&gt;&#10;  &lt;/jaxrs:serviceBeans&gt;&#10;  &lt;jaxrs:providers&gt;&#10;    &lt;ref bean=&quot;preInvokeHandler&quot; /&gt;&#10;    &lt;ref bean=&quot;customExceptionMapper&quot; /&gt;&#10;  &lt;/jaxrs:providers&gt;&#10;&lt;/jaxrs:server&gt;&#10;&#10;">
+          <value>
+            <list>
+              <CustomBeanInfo>
+                <option name="beanName" value="restContainer" />
+                <option name="beanClassName" value="org.apache.cxf.jaxrs.spring.JAXRSServerFactoryBeanDefinitionParser$SpringJAXRSServerFactoryBean" />
+                <option name="idAttribute" value="id" />
+              </CustomBeanInfo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
