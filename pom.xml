@@ -6,8 +6,11 @@
 
     <groupId>com.1240.seasonvar</groupId>
     <artifactId>seasonvar_info</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>parser</module>
+    </modules>
     <name>Seasonvar RESTful service</name>
     <dependencies>
         <!-- dao dependencies -->

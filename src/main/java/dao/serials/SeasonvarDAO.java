@@ -39,14 +39,14 @@ public class SeasonvarDAO implements ISeasonvarDAO {
                         String name = rs.getString("name");
                         String info = rs.getString("info");
                         String urlImage = rs.getString("urlImage");
-                        String urlPreviewImage = rs.getString("urlPreviewImage");
+                        String url = rs.getString("url");
                         int season = rs.getInt("season");
                         int seria_number = rs.getInt("seria_number");
                         String date = rs.getString("date");
                         Serial.setName(name);
                         Serial.setInfo(info);
                         Serial.setUrlImage(urlImage);
-                        Serial.setUrlPreviewImage(urlPreviewImage);
+                        Serial.setUrl(url);
                         Serial.setSeason(season);
                         Serial.setSeria_number(seria_number);
                         if (!date.equals(""))
@@ -70,8 +70,8 @@ public class SeasonvarDAO implements ISeasonvarDAO {
                 parameters.put("info", serial.getInfo());
             if (serial.getUrlImage() != null)
                 parameters.put("urlImage", serial.getUrlImage());
-            if (serial.getUrlPreviewImage() != null)
-                parameters.put("urlPreviewImage", serial.getUrlPreviewImage());
+            if (serial.getUrl() != null)
+                parameters.put("url", serial.getUrl());
             parameters.put("season", serial.getSeason());
             parameters.put("seria_number", serial.getSeria_number());
             parameters.put("date",
@@ -121,14 +121,14 @@ public class SeasonvarDAO implements ISeasonvarDAO {
                         String name = rs.getString("name");
                         String info = rs.getString("info");
                         String urlImage = rs.getString("urlImage");
-                        String urlPreviewImage = rs.getString("urlPreviewImage");
+                        String url = rs.getString("url");
                         int season = rs.getInt("season");
                         int seria_number = rs.getInt("seria_number");
                         String date = rs.getString("date");
                         serial.setName(name);
                         serial.setInfo(info);
                         serial.setUrlImage(urlImage);
-                        serial.setUrlPreviewImage(urlPreviewImage);
+                        serial.setUrl(url);
                         serial.setSeason(season);
                         serial.setSeria_number(seria_number);
                         if (!date.equals(""))

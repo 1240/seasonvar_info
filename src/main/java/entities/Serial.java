@@ -20,7 +20,7 @@ public class Serial extends Entity {
 	private String name;
 	private String info;
 	private String urlImage;
-	private String urlPreviewImage;
+	private String url;
 	private Integer season;
 	private Integer seria_number;
 	private Date date;
@@ -49,12 +49,12 @@ public class Serial extends Entity {
 		this.urlImage = urlImage;
 	}
 
-	public String getUrlPreviewImage() {
-		return urlPreviewImage;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setUrlPreviewImage(String urlPreviewImage) {
-		this.urlPreviewImage = urlPreviewImage;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Integer getSeason() {
