@@ -1,15 +1,12 @@
 package entities;
 
 
-import adapter.JaxBDateAdapter;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 @XmlRootElement(name = "serial")
-public class Serial extends Entity {
-	/*
+public class Serial {
+    /*
 	 * DB table fields `id` varchar(45) NOT NULL, `first_name` varchar(45)
 	 * DEFAULT NULL, `last_name` varchar(45) DEFAULT NULL, `phone` varchar(45)
 	 * DEFAULT NULL, `mail` varchar(45) DEFAULT NULL, `adress` varchar(45)
@@ -17,68 +14,76 @@ public class Serial extends Entity {
 	 * `contract_expire_date` date DEFAULT NULL
 	 */
 
-	private String name;
-	private String info;
-	private String urlImage;
-	private String url;
-	private Integer season;
-	private Integer seria_number;
-	private Date date;
+    private String code;
+    private String name;
+    private String url;
+    private String status;
+    private String chanel;
+    private String genre;
+    private String startDate;
+    private String info;
 
-	public String getName() {
-		return name;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getUrlImage() {
-		return urlImage;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public Integer getSeason() {
-		return season;
-	}
+    public String getChanel() {
+        return chanel;
+    }
 
-	public void setSeason(Integer season) {
-		this.season = season;
-	}
+    public void setChanel(String chanel) {
+        this.chanel = chanel;
+    }
 
-	public Integer getSeria_number() {
-		return seria_number;
-	}
+    public String getGenre() {
+        return genre;
+    }
 
-	public void setSeria_number(Integer seria_number) {
-		this.seria_number = seria_number;
-	}
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
-	@XmlJavaTypeAdapter(JaxBDateAdapter.class)
-	public Date getDate() {
-		return date;
-	}
+    public String getStartDate() {
+        return startDate;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 }

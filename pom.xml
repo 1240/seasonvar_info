@@ -8,9 +8,6 @@
     <artifactId>seasonvar_info</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>parser</module>
-    </modules>
     <name>Seasonvar RESTful service</name>
     <dependencies>
         <!-- dao dependencies -->
@@ -33,6 +30,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.21</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
         <!-- rest dependencies -->
         <dependency>

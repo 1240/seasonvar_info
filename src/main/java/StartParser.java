@@ -1,24 +1,31 @@
-import org.jsoup.Connection;
+import dao.serials.ISeasonvarDAO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.Scheduled;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * @author Alexander Popov on 17.02.2016.
+ * Created by l24o on 17.03.16.
  */
 public class StartParser {
 
-    public static void main(String[] args) throws IOException {
+    // link to our dao object
+    private ISeasonvarDAO serialsDAO;
+
+    // for serialsDAO bean property injection
+    public ISeasonvarDAO getSerialsDAO() {
+        return serialsDAO;
+    }
+
+    public void setSerialsDAO(ISeasonvarDAO serialsDAO) {
+        this.serialsDAO = serialsDAO;
+    }
+
+    @Scheduled(fixedDelay=50000)
+    public void update() throws IOException {
         String home = "http://myseries.ru/";
         String seriesEndPoint = "series";
         String seriesFilter = "page";

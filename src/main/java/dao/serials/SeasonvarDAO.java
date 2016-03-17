@@ -31,7 +31,7 @@ public class SeasonvarDAO implements ISeasonvarDAO {
     }
 
     public Serial getSerial(String id) {
-        templSerial.queryForObject(String.format("SELECT * FROM serial WHERE id = '%s'", id),
+        templSerial.queryForObject(String.format("SELECT * FROM serial WHERE code = '%s'", id),
                 new RowMapper<Serial>() {
                     public Serial mapRow(ResultSet rs, int rowNum)
                             throws SQLException {

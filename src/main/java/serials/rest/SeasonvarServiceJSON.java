@@ -39,8 +39,8 @@ public class SeasonvarServiceJSON implements ISerialService {
 	// get by id service
 	@GET
 	@Path("/{id}")
-	public Response getSerial(@PathParam("id") String id) {
-		Serial serial = serialsDAO.getSerial(id);
+	public Response getSerial(@PathParam("code") String code) {
+		Serial serial = serialsDAO.getSerial(code);
 		if (serial != null) {
 			return ResponseCreator.success(getHeaderVersion(), serial);
 		} else {
