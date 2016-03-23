@@ -1,7 +1,7 @@
 package com.l24o.serials.parser;
 
-import com.l24o.serials.dao.serials.ISerealsDAO;
 import com.l24o.serials.entities.*;
+import com.l24o.serials.repo.SerialRepo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class SerialParser {
 
     @Autowired
-    private ISerealsDAO serialsDAO;
+    private SerialRepo serialRepo;
 
     @Scheduled(fixedDelay = 50000)
     public void update() throws IOException {
@@ -119,10 +119,9 @@ public class SerialParser {
                         episode.setCode(eCode);
                         episode.setRating(eRating);
                         try {
-                            episode.setDate(new SimpleDateFormat("dd MMM yyyy", new Locale("ru","RU")).parse(eDate));
+                            episode.setDate(new SimpleDateFormat("dd MMM yyyy", new Locale("ru", "RU")).parse(eDate));
                         } catch (ParseException e) {
                             episode.setDate(null);
-                            e.printStackTrace();
                         }
                         episodesList.add(episode);
                     }
@@ -130,9 +129,8 @@ public class SerialParser {
                     seasons.add(season);
                 }
                 serial.setSeasons(seasons);
-                serialsDAO.createSerial(serial);
+                serialRepo.save(serial);
             }
-            System.out.println("----------------------------------------------------------");
         }
 
     }

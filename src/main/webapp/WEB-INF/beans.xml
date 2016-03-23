@@ -26,23 +26,30 @@
     <bean id="parse" class="com.l24o.serials.parser.SerialParser"/>
     <bean id="parseUpdates" class="com.l24o.serials.parser.NewSeriesParser"/>
     <bean id="serialsService" class="com.l24o.serials.rest.SerialsServiceJSON"/>
+
     <mongo:mongo host="${mongo.host}" port="${mongo.port}"/>
-    <mongo:db-factory
-            username="${mongo.username}"
-            password="${mongo.password}"
-            dbname="${mongo.db}"
-            mongo-ref="mongo"/>
+
+    <mongo:repositories base-package="com.l24o.serials.repo"/>
+
+    <!--<bean id="mUserCredentials" class="org.springframework.data.authentication.UserCredentials">
+        <constructor-arg name="username" value="${mongo.username}"/>
+        <constructor-arg name="password" value="${mongo.password}"/>
+    </bean>-->
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongo" ref="mongo"/>
+        <constructor-arg name="databaseName" value="${mongo.db}"/>
     </bean>
+
     <bean id="customExceptionMapper" class="com.l24o.serials.rest.CustomExceptionMapper"/>
+
 
     <jaxrs:server id="restContainer" address="/series">
         <jaxrs:serviceBeans>
             <ref bean="serialsService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
+            <bean id="jjProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
             <ref bean="customExceptionMapper"/>
         </jaxrs:providers>
     </jaxrs:server>

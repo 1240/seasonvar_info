@@ -1,6 +1,7 @@
 package com.l24o.serials.entities;
 
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,6 +14,7 @@ public class Serial implements Serializable {
 
     public static final String COLLECTION_NAME = "serial";
 
+    @Id
     private String code;
     private String name;
     private String url;

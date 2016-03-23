@@ -1,12 +1,9 @@
 package com.l24o.serials.rest;
 
-import com.l24o.serials.dao.parameters.serial.SerialListParameters;
-import com.l24o.serials.dao.serials.ISerealsDAO;
 import com.l24o.serials.entities.Serial;
-import com.l24o.serials.parameters.Order;
+import com.l24o.serials.repo.SerialRepo;
 import com.l24o.serials.rest.response.ResponseCreator;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.l24o.serials.rest.exceptions.Error;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -17,7 +14,7 @@ import static com.l24o.serials.rest.exceptions.Error.NOT_FOUND;
 public class SerialsServiceJSON implements ISerialService {
 
     @Autowired
-    private ISerealsDAO serialsDAO;
+    private SerialRepo serialRepo;
 
     // for retrieving request headers from context
     // an injectable interface that provides access to HTTP header information.
@@ -32,7 +29,7 @@ public class SerialsServiceJSON implements ISerialService {
     @GET
     @Path("/{id}")
     public Response getSerial(@PathParam("code") String code) {
-        Serial serial = serialsDAO.getSerial(code);
+        Serial serial = serialRepo.findOne(code);
         if (serial != null) {
             return ResponseCreator.success(getHeaderVersion(), serial);
         } else {
@@ -70,7 +67,7 @@ public class SerialsServiceJSON implements ISerialService {
 */
     // update row and return previous version of row representing serial as
     // object->JSON structure
-	/*@PUT
+    /*@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateSerial(Serial serial) {
 		Serial updSerial = serialsDAO.updateSerial(serial);
@@ -86,25 +83,16 @@ public class SerialsServiceJSON implements ISerialService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSerials(@QueryParam("keyword") String keyword,
-                               @QueryParam("orderby") String orderBy,
-                               @QueryParam("order") String order,
                                @QueryParam("pagenum") Integer pageNum,
                                @QueryParam("pagesize") Integer pageSize) {
-        SerialListParameters parameters = new SerialListParameters();
-        parameters.setKeyword(keyword);
-        parameters.setPageNum(pageNum);
-        parameters.setPageSize(pageSize);
-        parameters.setOrderBy(orderBy);
-        parameters.setOrder(Order.fromString(order));
-        List<Serial> listSer = serialsDAO.getSerialList(parameters);
-        if (listSer != null) {
-            GenericEntity<List<Serial>> entity = new GenericEntity<List<Serial>>(
-                    listSer) {
-            };
-            return ResponseCreator.success(getHeaderVersion(), entity);
-        } else {
-            return ResponseCreator.error(404, Error.NOT_FOUND.getCode(),
-                    getHeaderVersion());
-        }
+        return ResponseCreator.success(getHeaderVersion(), serialRepo.findAll());
+
+    }
+    @GET
+    @Path("/{all}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List getAllSerials() {
+        return (List) serialRepo.findAll();
+
     }
 }
