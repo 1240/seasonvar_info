@@ -1,0 +1,31 @@
+CREATE TABLE serial (
+  code VARCHAR(45) DEFAULT NULL,
+  name VARCHAR(45) DEFAULT NULL,
+  url VARCHAR(45) DEFAULT NULL,
+  status VARCHAR(45) DEFAULT NULL,
+  chanel VARCHAR(45) DEFAULT NULL,
+  genre VARCHAR(45) DEFAULT NULL,
+  startDate date DEFAULT NULL,
+  info VARCHAR(145) DEFAULT NULL,
+  PRIMARY KEY (code)
+);
+CREATE TABLE rating (
+  name VARCHAR(45) DEFAULT NULL ,
+  value VARCHAR (45) DEFAULT NULL ,
+  PRIMARY KEY (name)
+);
+CREATE TABLE season(
+  "number" NUMBER DEFAULT NULL,
+  PRIMARY KEY ("number")
+);
+CREATE TABLE translateteam(
+  name VARCHAR (45) DEFAULT NULL ,
+  PRIMARY KEY (name)
+);
+CREATE TABLE episode(
+  name   VARCHAR(45) DEFAULT NULL ,
+  code   VARCHAR(45) DEFAULT NULL ,
+  "date" DATE        DEFAULT NULL ,
+  rating VARCHAR(45) DEFAULT NULL ,
+  PRIMARY KEY (code)
+);

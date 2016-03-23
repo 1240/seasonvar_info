@@ -2,37 +2,45 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-
-
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.4.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
-
     <!-- Imported resources for cxf -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
-    <!-- Imported bean for dao -->
-    <import resource="classpath:dao.xml"/>
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.l24o.serials"/>
+    <context:property-placeholder location="classpath:database.properties"/>
 
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="5"/>
     <task:scheduler id="scheduler" pool-size="10"/>
-    <bean id="parse" class="StartParser">
-        <property name="serialsDAO" ref="customersDAO"/>
-    </bean>
-    <bean id="seasonvarService" class="serials.rest.SeasonvarServiceJSON">
-        <property name="serialsDAO" ref="customersDAO"/>
-    </bean>
+    <bean id="parse" class="com.l24o.serials.parser.SerialParser"/>
+    <bean id="parseUpdates" class="com.l24o.serials.parser.NewSeriesParser"/>
+    <bean id="serialsService" class="com.l24o.serials.rest.SerialsServiceJSON"/>
+    <mongo:mongo host="${mongo.host}" port="${mongo.port}"/>
+    <mongo:db-factory
+            username="${mongo.username}"
+            password="${mongo.password}"
+            dbname="${mongo.db}"
+            mongo-ref="mongo"/>
 
-    <bean id="customExceptionMapper" class="rest.CustomExceptionMapper"/>
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+    <bean id="customExceptionMapper" class="com.l24o.serials.rest.CustomExceptionMapper"/>
 
-    <jaxrs:server id="restContainer" address="/seasonvar">
+    <jaxrs:server id="restContainer" address="/series">
         <jaxrs:serviceBeans>
-            <ref bean="seasonvarService"/>
+            <ref bean="serialsService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="customExceptionMapper"/>
