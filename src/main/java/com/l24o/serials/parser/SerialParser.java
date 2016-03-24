@@ -27,7 +27,8 @@ public class SerialParser {
     @Autowired
     private SerialRepo serialRepo;
 
-    @Scheduled(fixedDelay = 50000)
+        @Scheduled(cron = "0 0 12 * * ?")
+//    @Scheduled(fixedDelay = 5000000)
     public void update() throws IOException {
         String home = "http://myseries.ru/";
         String seriesEndPoint = "series";
@@ -65,15 +66,21 @@ public class SerialParser {
                 String imdbS = bottom.get(0).select("span.imdb").text();
                 String tvmazeS = bottom.get(0).select("span.tvmaze").text();
                 String myshowsS = bottom.get(0).select("span.myshows").text();
-                String[] imdbSplit = imdbS.replaceAll(" ", "").split(":");
-                String[] tvmazeSplit = tvmazeS.replaceAll(" ", "").split(":");
-                String[] myshowsSplit = myshowsS.replaceAll(" ", "").split(":");
-                imdb.setName(imdbSplit[0]);
-                imdb.setValue(imdbSplit[1]);
-                tvmaze.setName(tvmazeSplit[0]);
-                tvmaze.setValue(tvmazeSplit[1]);
-                myshows.setName(myshowsSplit[0]);
-                myshows.setValue(myshowsSplit[1]);
+                if (!imdbS.isEmpty()) {
+                    String[] imdbSplit = imdbS.replaceAll(" ", "").split(":");
+                    imdb.setName(imdbSplit[0]);
+                    imdb.setValue(imdbSplit[1]);
+                }
+                if (!tvmazeS.isEmpty()) {
+                    String[] tvmazeSplit = tvmazeS.replaceAll(" ", "").split(":");
+                    tvmaze.setName(tvmazeSplit[0]);
+                    tvmaze.setValue(tvmazeSplit[1]);
+                }
+                if (!myshowsS.isEmpty()) {
+                    String[] myshowsSplit = myshowsS.replaceAll(" ", "").split(":");
+                    myshows.setName(myshowsSplit[0]);
+                    myshows.setValue(myshowsSplit[1]);
+                }
                 serial.setRating(Arrays.asList(imdb, tvmaze, myshows));
 
                 Elements translate = bottom.get(1).select("span");

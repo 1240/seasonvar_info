@@ -85,14 +85,14 @@ public class SerialsServiceJSON implements ISerialService {
     public Response getSerials(@QueryParam("keyword") String keyword,
                                @QueryParam("pagenum") Integer pageNum,
                                @QueryParam("pagesize") Integer pageSize) {
-        return ResponseCreator.success(getHeaderVersion(), serialRepo.findAll());
+        return ResponseCreator.success(getHeaderVersion(), serialRepo.searchByCode(keyword));
 
     }
     @GET
-    @Path("/{all}")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public List getAllSerials() {
-        return (List) serialRepo.findAll();
+    public Response getAllSerials() {
+        return ResponseCreator.success(getHeaderVersion(), serialRepo.findAll());
 
     }
 }

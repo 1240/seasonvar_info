@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface SerialRepo extends CrudRepository<Serial, String> {
 
-    @Query("{'code' : ?0}")
-    public Iterable<Serial> searchByCode(String code);
+    @Query("{'name' : 'Игра престолов / Game of Throne'}")
+    public Iterable<Serial> searchByCode(String name);
 
 }

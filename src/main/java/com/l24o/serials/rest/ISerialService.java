@@ -9,5 +9,5 @@ public interface ISerialService {
 
 	Response getSerials(String keyword, Integer pageNum, Integer pageSize);
 
-    List getAllSerials();
+	Response getAllSerials();
 }
