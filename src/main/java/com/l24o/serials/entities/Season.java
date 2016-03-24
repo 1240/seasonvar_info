@@ -3,6 +3,7 @@ package com.l24o.serials.entities;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 @XmlRootElement(name = "season")
 @Document(collection = Season.COLLECTION_NAME)
-public class Season {
+public class Season implements Serializable {
     public static final String COLLECTION_NAME = "season";
 
     private int number;

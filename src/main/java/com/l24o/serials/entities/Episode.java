@@ -1,8 +1,10 @@
 package com.l24o.serials.entities;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +13,13 @@ import java.util.List;
  */
 @XmlRootElement(name = "episode")
 @Document(collection = Episode.COLLECTION_NAME)
-public class Episode {
+public class Episode implements Serializable {
 
     public static final String COLLECTION_NAME = "episode";
 
-    private String name;
+    @Id
     private String code;
+    private String name;
     private Date date;
     private String rating;
     private List<TranslateTeam> translateTeams;
