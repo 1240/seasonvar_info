@@ -4,6 +4,9 @@ import com.l24o.serials.entities.Serial;
 import com.l24o.serials.repo.SerialRepo;
 import com.l24o.serials.rest.response.ResponseCreator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -27,15 +30,11 @@ public class SerialsServiceJSON implements ISerialService {
 
     // get by id service
     @GET
-    @Path("/{id}")
-    public Response getSerial(@PathParam("code") String code) {
+    @Path("/one")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSerial(@QueryParam("code") String code) {
         Serial serial = serialRepo.findOne(code);
-        if (serial != null) {
             return ResponseCreator.success(getHeaderVersion(), serial);
-        } else {
-            return ResponseCreator.error(404, NOT_FOUND.getCode(),
-                    getHeaderVersion());
-        }
     }
 
 	/*// remove row from the serials table according with passed id and returned
@@ -85,8 +84,8 @@ public class SerialsServiceJSON implements ISerialService {
     public Response getSerials(@QueryParam("keyword") String keyword,
                                @QueryParam("pagenum") Integer pageNum,
                                @QueryParam("pagesize") Integer pageSize) {
-        return ResponseCreator.success(getHeaderVersion(), serialRepo.searchByCode(keyword));
-
+        PageRequest pageRequest = new PageRequest(pageNum, pageSize, new Sort(Sort.Direction.ASC, "name"));
+        return ResponseCreator.success(getHeaderVersion(), serialRepo.searchByName(keyword, pageRequest).getContent());
     }
     @GET
     @Path("/all")

@@ -40,6 +40,7 @@ public class SerialParser {
         for (int i = 1; i <= pages; i++) {
             Document doc = Jsoup.connect(String.format("%s%s?%s=%s", home, seriesEndPoint, seriesFilter, i)).get();
             Elements movies = doc.select("div.movie-about");
+            List<Serial> serials = new ArrayList<Serial>();
             for (Element movie : movies) {
                 Serial serial = new Serial();
                 String attr = movie.select("a").attr("href");
@@ -136,8 +137,9 @@ public class SerialParser {
                     seasons.add(season);
                 }
                 serial.setSeasons(seasons);
-                serialRepo.save(serial);
+                serials.add(serial);
             }
+            serialRepo.save(serials);
         }
 
     }

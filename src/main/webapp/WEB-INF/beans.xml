@@ -31,7 +31,7 @@
 
     <mongo:repositories base-package="com.l24o.serials.repo"/>
 
-    <!--<bean id="mUserCredentials" class="org.springframework.data.authentication.UserCredentials">
+<!--    <bean id="mUserCredentials" class="org.springframework.data.authentication.UserCredentials">
         <constructor-arg name="username" value="${mongo.username}"/>
         <constructor-arg name="password" value="${mongo.password}"/>
     </bean>-->
@@ -39,6 +39,7 @@
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongo"/>
         <constructor-arg name="databaseName" value="${mongo.db}"/>
+        <!--<constructor-arg name="userCredentials" ref="mUserCredentials"/>-->
     </bean>
 
     <bean id="customExceptionMapper" class="com.l24o.serials.rest.CustomExceptionMapper"/>

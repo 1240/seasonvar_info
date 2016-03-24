@@ -1,6 +1,8 @@
 package com.l24o.serials.repo;
 
 import com.l24o.serials.entities.Serial;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -9,7 +11,13 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface SerialRepo extends CrudRepository<Serial, String> {
 
-    @Query("{'name' : 'Игра престолов / Game of Throne'}")
-    public Iterable<Serial> searchByCode(String name);
+    @Query("{code : ?0}")
+    public Iterable<Serial> searchByCode(String code);
+
+    @Query("{name :  {$regex : ?0}}")
+    public Iterable<Serial> searchByName(String name);
+
+    @Query("{name :  {$regex : ?0}}")
+    public Page<Serial> searchByName(String name, Pageable pageable);
 
 }
