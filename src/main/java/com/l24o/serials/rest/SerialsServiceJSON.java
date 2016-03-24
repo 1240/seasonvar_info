@@ -37,47 +37,6 @@ public class SerialsServiceJSON implements ISerialService {
             return ResponseCreator.success(getHeaderVersion(), serial);
     }
 
-	/*// remove row from the serials table according with passed id and returned
-    // status message in body
-	@DELETE
-	@Path("/{id}")
-	public Response removeSerial(@PathParam("id") String id) {
-		if (serialsDAO.removeSerial(id)) {
-			return ResponseCreator.success(getHeaderVersion(), "removed");
-		} else {
-			return ResponseCreator.success(getHeaderVersion(), "no such id");
-		}
-	}*/
-
-    /*// create row representing serial and returns created serial as
-    // object->JSON structure
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createSerial(Serial serial) {
-        System.out.println("POST");
-        Serial creSerial = serialsDAO.createSerial(serial);
-        if (creSerial != null) {
-            return ResponseCreator.success(getHeaderVersion(), creSerial);
-        } else {
-            return ResponseCreator.error(500, Error.SERVER_ERROR.getCode(),
-                    getHeaderVersion());
-        }
-    }
-*/
-    // update row and return previous version of row representing serial as
-    // object->JSON structure
-    /*@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSerial(Serial serial) {
-		Serial updSerial = serialsDAO.updateSerial(serial);
-		if (updSerial != null) {
-			return ResponseCreator.success(getHeaderVersion(), updSerial);
-		} else {
-			return ResponseCreator.error(500, Error.SERVER_ERROR.getCode(),
-					getHeaderVersion());
-		}
-	}
-*/
     // returns list of serials meeting query params
     @GET
     @Produces(MediaType.APPLICATION_JSON)

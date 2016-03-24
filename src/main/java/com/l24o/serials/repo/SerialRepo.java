@@ -11,13 +11,13 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface SerialRepo extends CrudRepository<Serial, String> {
 
-    @Query("{code : ?0}")
+    @Query("{code : {$regex : '^?0', $options: 'i'}}")
     public Iterable<Serial> searchByCode(String code);
 
-    @Query("{name :  {$regex : ?0}}")
+    @Query("{name :  {$regex : '^?0', $options: 'i'}}")
     public Iterable<Serial> searchByName(String name);
 
-    @Query("{name :  {$regex : ?0}}")
+    @Query("{name :  {$regex : '^?0', $options: 'i'}}")
     public Page<Serial> searchByName(String name, Pageable pageable);
 
 }
