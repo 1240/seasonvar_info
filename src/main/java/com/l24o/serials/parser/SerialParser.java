@@ -27,8 +27,8 @@ public class SerialParser {
     @Autowired
     private SerialRepo serialRepo;
 
-        @Scheduled(cron = "0 0 12 * * ?")
-//    @Scheduled(fixedDelay = 5000000)
+//        @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(fixedDelay = 5000000)
     public void update() throws IOException {
         String home = "http://myseries.ru/";
         String seriesEndPoint = "series";

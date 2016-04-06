@@ -29,7 +29,8 @@ public class NewSeriesParser {
     @Autowired
     private SerialRepo serialRepo;
 
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled(cron = "0 0/15 * * * ?")
+//    @Scheduled(fixedDelay = 50000)
     public void updates() throws IOException {
         String home = "http://myseries.ru/";
         Document parse = Jsoup.connect(home).get();

@@ -46,11 +46,19 @@ public class SerialsServiceJSON implements ISerialService {
         PageRequest pageRequest = new PageRequest(pageNum, pageSize, new Sort(Sort.Direction.ASC, "name"));
         return ResponseCreator.success(getHeaderVersion(), serialRepo.searchByName(keyword, pageRequest).getContent());
     }
+
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSerials() {
         return ResponseCreator.success(getHeaderVersion(), serialRepo.findAll());
+
+    }
+    @GET
+    @Path("/count")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCountAllSerials() {
+        return ResponseCreator.success(getHeaderVersion(), serialRepo.count());
 
     }
 }

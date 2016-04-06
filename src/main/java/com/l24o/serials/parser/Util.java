@@ -32,17 +32,18 @@ public class Util {
         String status = serialDoc.select("p.movie-option").get(0).select("span").text();
         String chanel = serialDoc.select("p.movie-option").get(1).select("span").text();
         String type = serialDoc.select("p.movie-option").get(2).select("span").text();
-        String startDate = serialDoc.select("p.movie-option").get(3).select("span").text();
+        String startDate = serialDoc.select("p.movie-option").get(3).ownText();
         serial.setStatus(status);
         serial.setChanel(chanel);
         serial.setGenre(type);
         serial.setStartDate(startDate);
-        String des = serialDoc.select("div.movie-description").select("p").text();
+        String des = serialDoc.select("div.movie-description").text();
         serial.setInfo(des);
 //                serialsDAO.createSerial(serial);
         Rating imdb = new Rating();
         Rating tvmaze = new Rating();
         Rating myshows = new Rating();
+        List<Rating> ratings = new ArrayList<Rating>();
         Elements bottom = serialDoc.select("div.movie-bottom").select("p.movie-option");
         String imdbS = bottom.get(0).select("span.imdb").text();
         String tvmazeS = bottom.get(0).select("span.tvmaze").text();
@@ -51,19 +52,23 @@ public class Util {
             String[] imdbSplit = imdbS.replaceAll(" ", "").split(":");
             imdb.setName(imdbSplit[0]);
             imdb.setValue(imdbSplit[1]);
+            ratings.add(imdb);
         }
         if (!tvmazeS.isEmpty()) {
             String[] tvmazeSplit = tvmazeS.replaceAll(" ", "").split(":");
             tvmaze.setName(tvmazeSplit[0]);
             tvmaze.setValue(tvmazeSplit[1]);
+            ratings.add(tvmaze);
+
         }
         if (!myshowsS.isEmpty()) {
             String[] myshowsSplit = myshowsS.replaceAll(" ", "").split(":");
             myshows.setName(myshowsSplit[0]);
             myshows.setValue(myshowsSplit[1]);
-        }
-        serial.setRating(Arrays.asList(imdb, tvmaze, myshows));
+            ratings.add(myshows);
 
+        }
+        serial.setRating(ratings);
         Elements translate = bottom.get(1).select("span");
         List<TranslateTeam> teams = new ArrayList<TranslateTeam>();
         for (Element element : translate) {
